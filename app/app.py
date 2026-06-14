@@ -1,3 +1,5 @@
+import os
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -13,9 +15,12 @@ st.set_page_config(
 # ── Load model artifacts ──────────────────────────────────────
 @st.cache_resource
 def load_model():
-    model        = joblib.load('../models/house_price_model.pkl')
-    scaler       = joblib.load('../models/scaler.pkl')
-    feature_names = joblib.load('../models/feature_names.pkl')
+    import os
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    model         = joblib.load(os.path.join(BASE_DIR, 'models', 'house_price_model.pkl'))
+    scaler        = joblib.load(os.path.join(BASE_DIR, 'models', 'scaler.pkl'))
+    feature_names = joblib.load(os.path.join(BASE_DIR, 'models', 'feature_names.pkl'))
     return model, scaler, feature_names
 
 try:
