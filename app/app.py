@@ -100,12 +100,13 @@ if st.button("💰 Predict Sale Price", use_container_width=True, type="primary"
         log_pred     = model.predict(input_scaled)[0]
         price        = np.expm1(log_pred)
 
-        st.success(f"### 🏷️ Estimated Sale Price: **${price:,.0f}**")
+        inr_price = price * 83  # USD to INR conversion
+        st.success(f"### 🏷️ Estimated Sale Price: **₹{inr_price:,.0f}**")
 
         col_a, col_b, col_c = st.columns(3)
-        col_a.metric("Low Estimate",  f"${price * 0.9:,.0f}")
-        col_b.metric("Prediction",    f"${price:,.0f}")
-        col_c.metric("High Estimate", f"${price * 1.1:,.0f}")
+        col_a.metric("Low Estimate",  f"₹{inr_price * 0.9:,.0f}")
+        col_b.metric("Prediction",    f"₹{inr_price:,.0f}")
+        col_c.metric("High Estimate", f"₹{inr_price * 1.1:,.0f}")
 
         st.caption("*Estimates are based on a Gradient Boosting model trained on the Ames Housing dataset.*")
 
